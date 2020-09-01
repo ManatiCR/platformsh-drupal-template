@@ -17,9 +17,11 @@ backstop_data/bitmaps_test/
 
 # Drupal
 web/*
+!web/.gitkeep
 
 # Files
 files/*
+!files/.gitkeep
 
 
 # Composer
