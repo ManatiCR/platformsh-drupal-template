@@ -1,0 +1,46 @@
+# General ignores
+.DS_Store
+.idea
+*.iml
+*.log
+*.tgz
+*.sql.gz
+node_modules
+
+# Lighthouse output
+lighthouse.html
+
+# BackstopJS
+backstop_data/html_report/
+backstop_data/bitmaps_reference/
+backstop_data/bitmaps_test/
+
+# Drupal
+web/*
+
+# Files
+files/*
+
+
+# Composer
+vendor
+
+# Settings
+settings.secret.php
+settings.local.php
+services.local.yml
+!.circleci/settings.secret.php
+
+# Plaform files
+.platform/local
+
+# Book build output
+docs/_book
+docs/html
+
+# eBook build output
+docs/*.epub
+docs/*.mobi
+docs/*.pdf
+/.editorconfig
+/.gitattributes
