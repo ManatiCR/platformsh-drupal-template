@@ -4,3 +4,13 @@ Template based on [drupal/recomended-project](https://github.com/drupal/recommen
 
 - [bloom](https://github.com/ManatiCR/bloom)
 - [drush](https://github.com/drush-ops/drush)
+
+## Local enviroment
+
+This template uses [chirripo](https://docs.chirripo.dev/) as local environment.
+
+## Requirements
+
+- Docker
+- Docker Compose
+- [Chirripo Launcher](https://docs.chirripo.dev/chirripo-launcher/)

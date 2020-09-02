@@ -35,6 +35,7 @@
         "manaticr/bloom": "^1.0"
     },
     "require-dev": {
+        "chirripo/chirripo": "^1.0",
         "drupal/core-dev": "^8.9"
     },
     "conflict": {
@@ -43,6 +44,12 @@
     "config": {
         "sort-packages": true,
         "preferred-install": "source"
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "echo 'Update .env files as required and uncomment lines at the end of settings.php'",
+            "echo 'Then, run ./bin/chirripo start'"
+        ]
     },
     "extra": {
         "drupal-scaffold": {
