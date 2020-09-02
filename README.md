@@ -14,3 +14,4 @@ This template uses [chirripo](https://docs.chirripo.dev/) as local environment.
 - Docker
 - Docker Compose
 - [Chirripo Launcher](https://docs.chirripo.dev/chirripo-launcher/)
+- [Chirripo Proxy](https://docs.chirripo.dev/chirripo-proxy/)
