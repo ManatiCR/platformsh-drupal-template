@@ -69,7 +69,8 @@
         "enyo/dropzone": "^5.7",
         "manaticr/bloom": "^1.0",
         "manaticr/manati_base_config": "^1.0",
-        "oomphinc/composer-installers-extender": " ^1.1"
+        "oomphinc/composer-installers-extender": " ^1.1",
+        "platformsh/config-reader": "^2.3"
     },
     "require-dev": {
         "chirripo/chirripo": "^1.0",
