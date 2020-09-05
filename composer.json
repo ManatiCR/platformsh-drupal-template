@@ -67,6 +67,7 @@
         "drupal/xmlsitemap": "^1.0",
         "drush/drush": "^10.3",
         "enyo/dropzone": "^5.7",
+        "kporras07/composer-symlinks": "dev-master",
         "manaticr/bloom": "^1.0",
         "manaticr/manati_base_config": "^1.0",
         "oomphinc/composer-installers-extender": " ^1.1",
@@ -84,6 +85,12 @@
         "preferred-install": "source"
     },
     "scripts": {
+        "post-install-cmd": [
+          "Kporras07\\ComposerSymlinks\\ScriptHandler::createSymlinks"
+        ],
+        "post-update-cmd": [
+          "Kporras07\\ComposerSymlinks\\ScriptHandler::createSymlinks"
+        ],
         "post-create-project-cmd": [
             "cp vendor/chirripo/chirripo/env.example env.example",
             "cp vendor/chirripo/chirripo/env.example .env",
@@ -110,6 +117,18 @@
             "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
             "web/modules/custom/{$name}": ["type:drupal-custom-module"],
             "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
+        },
+        "symlinks": {
+          "settings/settings.php": "web/sites/default/settings.php",
+          "settings/settings.local.php": "web/sites/default/settings.local.php",
+          "settings/settings.platformsh.php": "web/sites/default/settings.platformsh.php",
+          "settings/settings.secret.php": "web/sites/default/settings.secret.php",
+          "settings/services.yml": "web/sites/default/services.yml",
+          "settings/services.local.yml": "web/sites/default/services.local.yml",
+          "files": "web/sites/default/files",
+          "config": "web/sites/default/config",
+          "modules/custom": "web/modules/custom",
+          "themes/custom": "web/themes/custom"
         },
         "enable-patching": true,
         "patches-file": "composer.patches.json"
