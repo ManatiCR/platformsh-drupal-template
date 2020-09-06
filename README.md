@@ -25,7 +25,7 @@ Run the local environemnt:
 chirripo start
 ```
 
-Generate local settings files:
+Generate local settings files **(run this command at root of the project)**:
 
 ```bash
 ./scripts/local-settings.sh
@@ -36,6 +36,12 @@ Install the requiered dependencies:
 ```bash
 composer install
 npm install
+```
+
+Install the local site **(run this command at root of the project)**:
+
+```bash
+./scripts/site-install.sh
 ```
 
 ## Installed Stuff
