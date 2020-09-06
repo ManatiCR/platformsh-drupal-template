@@ -46,6 +46,6 @@ You can change any variable defined in the `.env` file to make adjustments to th
 
 Core is created as `collection1`.
 
-Solr address is `solr`.
+Solr address is `solr`.
 
 Path is `/`.

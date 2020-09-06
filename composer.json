@@ -86,12 +86,13 @@
     },
     "scripts": {
         "post-install-cmd": [
-          "Kporras07\\ComposerSymlinks\\ScriptHandler::createSymlinks"
+            "Kporras07\\ComposerSymlinks\\ScriptHandler::createSymlinks"
         ],
         "post-update-cmd": [
-          "Kporras07\\ComposerSymlinks\\ScriptHandler::createSymlinks"
+            "Kporras07\\ComposerSymlinks\\ScriptHandler::createSymlinks"
         ],
         "post-create-project-cmd": [
+            "Kporras07\\ComposerSymlinks\\ScriptHandler::createSymlinks",
             "cp vendor/chirripo/chirripo/env.example env.example",
             "cp vendor/chirripo/chirripo/env.example .env",
             "echo 'Update .env files as required and uncomment lines at the end of settings.php'",
