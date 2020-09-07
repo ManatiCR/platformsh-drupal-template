@@ -24,9 +24,6 @@ $settings['file_scan_ignore_directories'] = [
 // Config Split module settings.
 $config['config_split.config_split.dev']['status'] = TRUE;
 
-// Install profile.
-$settings['install_profile'] = 'bloom';
-
 // Environment indicator module settings.
 $config['environment_indicator.indicator']['bg_color'] = '#863DA1';
 $config['environment_indicator.indicator']['fg_color'] = '#FFFFFF';

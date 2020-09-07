@@ -13,3 +13,10 @@ cache:
 search:
   type: solr:8.6
   disk: 1024
+  configuration:
+    cores:
+      maincore:
+        conf_dir: !archive 'solr_8.x_config/'
+    endpoints:
+      main:
+        core: maincore
