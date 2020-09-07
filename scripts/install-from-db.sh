@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 if [ ! -f db_site.sql.gz ]; then
   platform db:dump --gzip --file=db_site.sql.gz -e master
 fi

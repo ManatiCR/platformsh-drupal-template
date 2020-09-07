@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 if [ ! -f ./settings/settings.local.php ]; then
   echo "Creating ./settings/settings.local.php"
   printf "<?php\n\n/**\n * @file\n * Local development settings.\n */\n\n\$config['system.performance']['css']['preprocess'] = FALSE;\n\$config['system.performance']['js']['preprocess'] = FALSE;\n\$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/default/services.local.yml';\n\$settings['cache']['bins']['render'] = 'cache.backend.null';\n\$settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';\n\$settings['cache']['bins']['page'] = 'cache.backend.null';\n\$GLOBALS['_kint_settings']['maxLevels'] = 3;\n\$settings['file_temp_path'] = '/tmp';\n\$settings['hash_salt'] = 'local';\n\$settings['skip_permissions_hardening'] = TRUE;\n\$config['system.logging']['error_level'] = 'verbose';\n// Trusted host configuration.\n\$settings['trusted_host_patterns'] = [\n  '^localhost',\n  '^127.0.0.1',\n];\n" > settings/settings.local.php
