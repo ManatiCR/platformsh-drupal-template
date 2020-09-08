@@ -19,12 +19,6 @@ Template based on [drupal/recomended-project](https://github.com/drupal/recommen
 
 This template uses [chirripo](https://docs.chirripo.dev/) as local environment.
 
-Run the local environemnt:
-
-```bash
-chirripo start
-```
-
 Generate local settings files **(run this command at root of the project)**:
 
 ```bash
@@ -36,6 +30,12 @@ Install the requiered dependencies:
 ```bash
 composer install
 npm install
+```
+
+Run the local environemnt:
+
+```bash
+chirripo start
 ```
 
 Install the local site **(run this command at root of the project)**:

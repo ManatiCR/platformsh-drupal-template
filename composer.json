@@ -67,6 +67,7 @@
         "drupal/xmlsitemap": "^1.0",
         "drush/drush": "^10.3",
         "enyo/dropzone": "^5.7",
+        "kint-php/kint": "^3.3",
         "kporras07/composer-symlinks": "dev-master",
         "manaticr/bloom": "^1.0",
         "manaticr/manati_base_config": "^1.0",
