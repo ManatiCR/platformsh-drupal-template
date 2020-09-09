@@ -1,4 +1,4 @@
-# platformsh-drupal-template
+# PlatformSh Drupal Template
 
 Template based on [drupal/recomended-project](https://github.com/drupal/recommended-project) to create drupal projects to be deployed in [Platformsh](https://platform.sh/), also includes:
 
@@ -44,6 +44,24 @@ Install the local site **(run this command at root of the project)**:
 ./scripts/site-install.sh
 ```
 
+**Optional:** Enable and configure the [Chirripo Proxy](https://docs.chirripo.dev/chirripo-proxy/).
+
+### Import the existing site
+
+Download database in the root of the project, then change the name of the file by `db_site.sql.gz`
+
+Import the databese:
+
+```bash
+./scripts/install-from-db.sh
+```
+
+Add the site URL in the  `settings/settings.local.php` file:
+
+```php
+$config['stage_file_proxy.settings']['origin'] = 'SITE_URL';
+```
+
 ## Installed Stuff
 
 You can change any variable defined in the `.env` file to make adjustments to the provided setup. You can edit the file named `docker-compose.override.yml` in the root of the project to make more advanced customizations.
@@ -55,3 +73,19 @@ Core is created as `collection1`.
 Solr address is `solr`.
 
 Path is `/`.
+
+## Testing
+
+This project uses `npm` to run `gulp` tasks.
+
+To run drupalcs, phplint and eslint tasks:
+
+```bash
+npm run test
+```
+
+To compile/transpile Javascript es6:
+
+```bash
+npm run build:js
+```
