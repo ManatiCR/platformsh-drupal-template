@@ -6,9 +6,11 @@ chirripo drush cr
 echo "Drop Database..."
 chirripo drush sql:drop -- -y
 echo "Import database..."
-gunzip -c db_site.sql.gz | chirripo drush sqlc
+chirripo db-import ./db_site.sql.gz
 echo "Update database..."
-chirripo drush updb -- -y
+chirripo drush updb -- --no-cache-clear -y
+echo "Cleaning cache..."
+chirripo drush cr
 echo "Importing config..."
 chirripo drush cim -- -y
 echo "Cleaning cache..."
