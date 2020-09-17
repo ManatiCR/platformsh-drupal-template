@@ -70,7 +70,6 @@
         "kint-php/kint": "^3.3",
         "kporras07/composer-symlinks": "dev-master",
         "manaticr/bloom": "^1.0",
-        "manaticr/manati_base_config": "^1.0",
         "oomphinc/composer-installers-extender": " ^1.1",
         "platformsh/config-reader": "^2.3"
     },
