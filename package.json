@@ -1,5 +1,5 @@
 {
-  "name": "asebac",
+  "name": "template",
   "private": true,
   "devDependencies": {
     "@babel/core": "^7.9.6",
