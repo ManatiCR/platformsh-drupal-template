@@ -17,12 +17,12 @@ const PluginError = require('plugin-error');
 
 gulp.task('drupalcs', () => {
   // Source file defaults to a pattern.
-  const extensions = '{php,module,inc,install,test,profile,theme}';
+  const extensions = 'php,module,inc,install,test,profile,theme';
   const sourcePatterns = [
-    `modules/**/*.${extensions}`,
-    `themes/**/*.${extensions}`,
-    `tests/behat/**/*.${extensions}`,
-    `settings/**/*.${extensions}`,
+    `modules/**/*.{${extensions}}`,
+    `themes/**/*.{${extensions}}`,
+    `tests/behat/**/*.{${extensions}}`,
+    `settings/**/*.{${extensions}}`,
   ];
 
   return (
@@ -30,7 +30,7 @@ gulp.task('drupalcs', () => {
       .src(sourcePatterns)
       .pipe(
         through2.obj(function (file, enc, callback) {
-          const command = `vendor/bin/phpcs --standard="vendor/drupal/coder/coder_sniffer/Drupal" ${file.path}`;
+          const command = `./vendor/bin/phpcs --standard="./vendor/drupal/coder/coder_sniffer/Drupal" --extensions=${extensions} ${file.path}`;
           const report = exec(command);
           // If status === 1 (error).
           if (report.status) {

@@ -9,6 +9,6 @@ if [ ! -f ./settings/settings.secret.php ]; then
 fi
 if [ ! -f ./settings/services.local.yml ]; then
   echo "Creating ./settings/services.local.yml"
-  printf "parameters:\n  http.response.debug_cacheability_headers: true\n  twig.config:\n    debug: true\n    auto_reload: true\n    cache: false\nservices:\n  cache.backend.null:\n    class: Drupal\Core\Cache\NullBackendFactory" > settings/services.local.yml
+  printf "parameters:\n  http.response.debug_cacheability_headers: true\n  twig.config:\n    debug: true\n    auto_reload: true\n    cache: false\nservices:\n  cache.backend.null:\n    class: Drupal\Core\Cache\NullBackendFactory\n" > settings/services.local.yml
 fi
 echo "Complete."
