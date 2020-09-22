@@ -87,3 +87,15 @@ To compile/transpile Javascript es6:
 ```bash
 npm run build:js
 ```
+
+To run lighthouse test in front page:
+
+```bash
+npm run lighthouse
+```
+
+To run lighthouse in a custom url:
+
+```bash
+node_modules/.bin/lhci autorun --collect.url=CUSTOM_URL
+```

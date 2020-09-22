@@ -1,5 +1,4 @@
 version: 2
-
 # Environment variables required by the project:
 # GIT_EMAIL
 # GIT_NAME
@@ -7,12 +6,14 @@ version: 2
 # PLATFORM_GIT_REPO
 # PLATFORM_PROJECT_ID
 # SITE_UUID
+# SITE_URL
+# LHCI_GITHUB_APP_TOKEN
+
 jobs:
   build:
     docker:
       - image: kporras07/docker-drupal-nginx:php-7.3.x-backstop
       - image: selenium/standalone-chrome-debug:3.6.0
-      - image: kporras07/lighthouse-ci:nonheadless
       - image: mariadb:5.5
         environment:
           MYSQL_DATABASE: drupal
@@ -73,6 +74,12 @@ jobs:
             ./node_modules/.bin/gulp phplint
             ./node_modules/.bin/gulp drupalcs
             ./node_modules/.bin/gulp eslint
+      - run:
+          name: Lighthouse
+          command: |
+            /etc/init.d/nginx start > nginx.log &
+            /etc/init.d/php7.3-fpm start > php7.3-fpm.log &
+            ./node_modules/.bin/lhci autorun --collect.url=http://local_site.local
 
   deploy-dev:
     docker:
@@ -154,6 +161,15 @@ jobs:
             /root/.platformsh/bin/platform drush cim -p $PLATFORM_PROJECT_ID -e master -- -y
             /root/.platformsh/bin/platform drush cr -p $PLATFORM_PROJECT_ID -e master
 
+  lighthouse-on-live:
+    docker:
+      - image: circleci/node:10.16-browsers
+    working_directory: ~/local_site
+    steps:
+      - checkout
+      - run: sudo npm install -g @lhci/cli@0.4.x
+      - run: lhci autorun --collect.url=$SITE_URL
+
 workflows:
   version: 2
   build-deploys:
@@ -175,3 +191,9 @@ workflows:
       - deploy-live:
           requires:
             - deploy-live-hold
+      - lighthouse-on-live:
+          requires:
+            - deploy-live
+          filters:
+            branches:
+              only: master
