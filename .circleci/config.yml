@@ -13,7 +13,6 @@ jobs:
   build:
     docker:
       - image: kporras07/docker-drupal-nginx:php-7.3.x-backstop
-      - image: selenium/standalone-chrome-debug:3.6.0
       - image: mariadb:5.5
         environment:
           MYSQL_DATABASE: drupal
@@ -42,11 +41,16 @@ jobs:
             php -r "unlink('composer-setup.php');"
             mv composer.phar /usr/bin/composer
       - run:
+          name: Install Platform CLI
+          command: |
+            curl -sS https://platform.sh/cli/installer | php
+      - add_ssh_keys:
+      - run:
           name: Configure Nginx
           command: |
             cp ./.circleci/local_site /etc/nginx/sites-available/default
       - run:
-          name: Build site.
+          name: Build site from scratch
           command: |
             cp ./.circleci/settings.secret.php ./settings/
             composer install
@@ -66,8 +70,32 @@ jobs:
               if [ ! -d ./node_modules ]; then npm install; fi
               npm run build
               cd /var/www/local_site
-              echo "Cleaning cache..."
             fi
+            echo "Cleaning cache..."
+            ./vendor/bin/drush cr
+      - run:
+          name: Build site from DB
+          command: |
+            git config --global user.email $GIT_EMAIL
+            git config --global user.name $GIT_NAME
+            echo 'Host *' >> /root/.ssh/config
+            echo '   StrictHostKeyChecking no' >> /root/.ssh/config
+            /root/.platformsh/bin/platform db:dump --gzip --file=database.sql.gz -p $PLATFORM_PROJECT_ID -e master
+            echo "Drop Database..."
+            ./vendor/bin/drush sql:drop -y
+            echo "Import database..."
+            gunzip -c database.sql.gz | ./vendor/bin/drush sqlc
+            echo "Update database..."
+            ./vendor/bin/drush updb --no-cache-clear -y
+            echo "Cleaning cache..."
+            ./vendor/bin/drush cr
+            echo "Importing config..."
+            ./vendor/bin/drush cim -y
+            ./vendor/bin/drush cim -y
+            echo "Sanitizing database..."
+            ./vendor/bin/drush sqlsan --sanitize-password=admin -y
+            echo "Cleaning cache..."
+            ./vendor/bin/drush cr
       - run:
           name: Coding Standards Linters
           command: |
