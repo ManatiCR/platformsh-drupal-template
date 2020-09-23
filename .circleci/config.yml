@@ -21,6 +21,7 @@ jobs:
     steps:
       - run: apt-get update -y && apt-get install python -y
       - run: echo 127.0.0.1 local_site.local | tee -a /etc/hosts
+      - add_ssh_keys:
       - checkout
       - restore_cache:
           keys:
@@ -44,7 +45,6 @@ jobs:
           name: Install Platform CLI
           command: |
             curl -sS https://platform.sh/cli/installer | php
-      - add_ssh_keys:
       - run:
           name: Configure Nginx
           command: |
