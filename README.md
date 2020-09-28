@@ -26,7 +26,7 @@ Generate local settings files **(run this command at root of the project)**:
 Install the requiered dependencies:
 
 ```bash
-composer install
+composer install --ignore-platform-reqs
 npm install
 ```
 
