@@ -13,6 +13,14 @@ Template based on [drupal/recomended-project](https://github.com/drupal/recommen
 
 ## Getting Started
 
+Install on Platform.sh
+
+<p align="center">
+<a href="https://console.platform.sh/projects/create-project?template=https://github.com/ManatiCR/platformsh-drupal-template.git&utm_content=manaticr&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform">
+    <img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" />
+</a>
+</p>
+
 ### Prepare for local development
 
 This template uses [chirripo](https://docs.chirripo.dev/) as local environment.
