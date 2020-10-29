@@ -30,7 +30,7 @@ composer install --ignore-platform-reqs
 npm install
 ```
 
-Run the local environemnt:
+Run the local environemnt **([Chirripo Launcher](https://docs.chirripo.dev/chirripo-launcher/) should be installed in order to execute chirripo command globally)**:
 
 ```bash
 chirripo start
@@ -42,7 +42,13 @@ Install the local site **(run this command at root of the project)**:
 ./scripts/site-install.sh
 ```
 
-**Optional:** Enable and configure the [Chirripo Proxy](https://docs.chirripo.dev/chirripo-proxy/).
+Enable and configure the [Chirripo Proxy](https://docs.chirripo.dev/chirripo-proxy/).
+
+Start the proxy:
+
+```bash
+chirripo proxy-up
+```
 
 ### Import the existing site
 
