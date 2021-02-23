@@ -52,7 +52,7 @@
         "drupal/rabbit_hole": "^1.0",
         "drupal/recaptcha": "^3.0",
         "drupal/redirect": "^1.6",
-        "drupal/redis": "^1.4",
+        "drupal/redis": "^1.5",
         "drupal/retina_images": "1.x-dev",
         "drupal/search_api_solr": "^4.1",
         "drupal/seckit": "^2.0",
@@ -66,7 +66,7 @@
         "kint-php/kint": "^3.3",
         "kporras07/composer-symlinks": "dev-master",
         "manaticr/bloom": "^1.0",
-        "platformsh/config-reader": "^2.3"
+        "platformsh/config-reader": "^2.4"
     },
     "require-dev": {
         "chirripo/chirripo": "^1.0",
