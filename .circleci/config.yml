@@ -5,15 +5,14 @@ version: 2
 # PLATFORMSH_CLI_TOKEN
 # PLATFORM_GIT_REPO
 # PLATFORM_PROJECT_ID
-# SITE_UUID
 # SITE_URL
 # LHCI_GITHUB_APP_TOKEN
 
 jobs:
   build:
     docker:
-      - image: kporras07/docker-drupal-nginx:php-7.3.x-backstop
-      - image: mariadb:5.5
+      - image: kporras07/docker-drupal-nginx:php-7.4.x
+      - image: mariadb:10.5
         environment:
           MYSQL_DATABASE: drupal
           MYSQL_ROOT_PASSWORD: drupal
@@ -42,6 +41,17 @@ jobs:
             php -r "unlink('composer-setup.php');"
             mv composer.phar /usr/bin/composer
       - run:
+          name: Getting required PHP packages
+          command: |
+            cp ./.circleci/settings.secret.php ./settings/
+            composer install
+      - run:
+          name: Coding Standards Linters
+          command: |
+            ./node_modules/.bin/gulp phplint
+            ./node_modules/.bin/gulp drupalcs
+            ./node_modules/.bin/gulp eslint
+      - run:
           name: Install Platform CLI
           command: |
             curl -sS https://platform.sh/cli/installer | php
@@ -52,19 +62,13 @@ jobs:
       - run:
           name: Build site from scratch
           command: |
-            cp ./.circleci/settings.secret.php ./settings/
-            composer install
             chmod 777 -R ./web/sites/default/files
             /usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`"
             echo "Installing the site..."
-            ./vendor/bin/drush si bloom -y
-            if [ -f /var/www/local_site/config/sync/core.extension.yml ]; then
-              echo "Setting the site uuid..."
-              ./vendor/bin/drush config:set system.site uuid $SITE_UUID -y
-              echo "Importing config..."
-              ./vendor/bin/drush cim -y
-              ./vendor/bin/drush cim -y
-            fi
+            ./vendor/bin/drush si bloom -y --existing-config
+            echo "Importing config..."
+            ./vendor/bin/drush cim -y
+            ./vendor/bin/drush cim -y
             if [ -f ./themes/custom/CUSTOMTHEME/package.json ]; then
               cd ./themes/custom/CUSTOMTHEME
               if [ ! -d ./node_modules ]; then npm install; fi
@@ -97,12 +101,6 @@ jobs:
             echo "Cleaning cache..."
             ./vendor/bin/drush cr
       - run:
-          name: Coding Standards Linters
-          command: |
-            ./node_modules/.bin/gulp phplint
-            ./node_modules/.bin/gulp drupalcs
-            ./node_modules/.bin/gulp eslint
-      - run:
           name: Lighthouse
           command: |
             /etc/init.d/nginx start > nginx.log &
@@ -111,7 +109,7 @@ jobs:
 
   deploy-dev:
     docker:
-      - image: kporras07/docker-drupal-nginx:php-7.3.x-backstop
+      - image: kporras07/docker-drupal-nginx:php-7.4.x
     working_directory: /var/www/local_site
     steps:
       - checkout
@@ -130,15 +128,14 @@ jobs:
             echo '   StrictHostKeyChecking no' >> /root/.ssh/config
             ./scripts/deploy.sh dev "Auto deploy triggered from master branch"
             /root/.platformsh/bin/platform drush cc drush -p $PLATFORM_PROJECT_ID -e dev
-            /root/.platformsh/bin/platform drush si -p $PLATFORM_PROJECT_ID -e dev -- bloom --account-pass=admin -y
-            /root/.platformsh/bin/platform drush config:set -p $PLATFORM_PROJECT_ID -e dev -- "system.site" uuid "$SITE_UUID" -y
+            /root/.platformsh/bin/platform drush si -p $PLATFORM_PROJECT_ID -e dev -- bloom --account-pass=admin --existing-config -y
             /root/.platformsh/bin/platform drush cr -p $PLATFORM_PROJECT_ID -e dev
             /root/.platformsh/bin/platform drush cim -p $PLATFORM_PROJECT_ID -e dev -- -y
             /root/.platformsh/bin/platform drush cr -p $PLATFORM_PROJECT_ID -e dev
 
   deploy-staging:
     docker:
-      - image: kporras07/docker-drupal-nginx:php-7.3.x
+      - image: kporras07/docker-drupal-nginx:php-7.4.x
     working_directory: /var/www/local_site
     steps:
       - run:
@@ -165,7 +162,7 @@ jobs:
 
   deploy-live:
     docker:
-      - image: kporras07/docker-drupal-nginx:php-7.3.x
+      - image: kporras07/docker-drupal-nginx:php-7.4.x
     working_directory: /var/www/local_site
     steps:
       - run:
