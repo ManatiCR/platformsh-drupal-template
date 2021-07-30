@@ -11,8 +11,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: kporras07/docker-drupal-nginx:php-7.3.x-backstop
-      - image: mariadb:5.5
+      - image: kporras07/docker-drupal-nginx:php-7.4.x
+      - image: mariadb:10.5
         environment:
           MYSQL_DATABASE: drupal
           MYSQL_ROOT_PASSWORD: drupal
@@ -109,7 +109,7 @@ jobs:
 
   deploy-dev:
     docker:
-      - image: kporras07/docker-drupal-nginx:php-7.3.x-backstop
+      - image: kporras07/docker-drupal-nginx:php-7.4.x
     working_directory: /var/www/local_site
     steps:
       - checkout
@@ -135,7 +135,7 @@ jobs:
 
   deploy-staging:
     docker:
-      - image: kporras07/docker-drupal-nginx:php-7.3.x
+      - image: kporras07/docker-drupal-nginx:php-7.4.x
     working_directory: /var/www/local_site
     steps:
       - run:
@@ -162,7 +162,7 @@ jobs:
 
   deploy-live:
     docker:
-      - image: kporras07/docker-drupal-nginx:php-7.3.x
+      - image: kporras07/docker-drupal-nginx:php-7.4.x
     working_directory: /var/www/local_site
     steps:
       - run:
