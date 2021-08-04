@@ -25,6 +25,8 @@ jobs:
       - restore_cache:
           keys:
             - npm-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          keys:
             - composer-cache-{{ checksum "composer.lock" }}
       - run: npm install
       - save_cache:
@@ -45,6 +47,10 @@ jobs:
           command: |
             cp ./.circleci/settings.secret.php ./settings/
             composer install
+      - save_cache:
+          key: composer-cache-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
       - run:
           name: Coding Standards Linters
           command: |
